@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pro Meu Amor!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Love+Ya+Like+A+Sister&family=Loved+by+the+King&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: linear-gradient(#ffdde1, #ffd6f2);
+        font-family: "Open Sans", sans-serif;
+        overflow-x: hidden;
+        text-align: center;
+        display: flex;
+        max-width: 500px;
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+        padding: 1rem;
+      }
+      h1,
+      h2 {
+        font-family: "Winky Rough", sans-serif;
+        font-size: 2.5rem;
+        color: #6e1051;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    .text-style{
+          color: #6e1051;
+          margin: 8px 0;
+      }
+      .spotify-container {
+        margin: 2rem auto 0 auto;
+        width: calc(100% - 2rem);
+        z-index: 1;
+      }
+      .slideshow-container {
+        padding: 0 !important;
+        position: relative;
+        margin: 1rem auto;
+        width: 90%;
+        width: 300px;
+        height: 533.33px;
+        overflow: hidden;
+        border-radius: 15px;
+        margin-top: 8px !important;
+      }
+      .slideshow {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        width: 100%; /* Para 5 imagens visíveis por vez */
+      }
+      .slide-img {
+        min-width: 100%;
+        height: 100%;
+      }
+      .dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        bottom: 0;
+        position: absolute;
+        width: 100%;
+        padding: 6px;
+        background-color: #fff;
+      }
+      .dot {
+        height: 12px;
+        width: 12px;
+        margin: 0 4px;
+        background-color: #6e1051;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.5;
+        cursor: pointer;
+      }
+      .dot.active {
+        opacity: 1;
+      }
+      @keyframes fade {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      .pretty-box {
+        z-index: 1;
+        margin: auto;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        background-color: white;
+        border: 2px solid #6e1051;
+        border-radius: 12px;
+        margin-top: 2rem;
+        font-size: 1.2rem;
+        color: #6e1051;
+        padding: 10px;
+        gap: 10px;
+        h1 {
+          margin: 0;
+        }
+      }
+      .countdown {
+        gap: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 10px;
+        .block {
+          display: flex;
+          flex-direction: column;
+          width: 80px;
+          padding: 10px;
+          align-items: center;
+          justify-content: center;
+          color: #6e1051;
+          border-bottom: 4px solid #6e1051;
+          gap: 6px;
+          background-color: #dd00ff4f;
+          border-radius: 10px;
+          h2 {
+            margin: 0;
+          }
+          p {
+            font-weight: bold;
+            font-size: 12px;
+          }
+        }
+      }
+      .message {
+        margin: 2rem auto 0 auto;
+        font-size: 1.1rem;
+        color: #6e1051;
+        max-width: 500px;
+      }
+      .hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+      }
+      .heart {
+        position: absolute;
+        color: red;
+        font-size: 24px;
+        animation: fall 5s linear infinite;
+      }
+      @keyframes fall {
+        0% {
+          transform: translateY(-10%);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh);
+          opacity: 0;
+        }
+      }
+      .stars {
+        font-size: 3rem;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 0.6;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0.6;
+        }
+      }
+      .number-circle{
+        font-family: "Winky Rough", sans-serif;
+        font-weight: 700;
+        width: 32px;
+        height: 32px;
+        line-height: normal;
+        border-radius: 50%;
+        color: #6e1051;
+        background-color: #fff;
+        border: 2px solid #6e1051;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 10px;
+        font-size: 14px;
+        bottom: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hearts"></div>
+
+    <h1 class="hello-message"></h1>
+    <p class="text-style">Heaven is a place on earth with you</p>
+
+    <div class="spotify-container">
+      <!-- Substitua o link abaixo pela música que desejar -->
+      <iframe
+        data-testid="embed-iframe"
+        src="https://open.spotify.com/embed/track/5sJJQxIfys0imGd4WhILm8?utm_source=generator"
+        width="100%"
+        height="152"
+        frameborder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </div>
+
+    <div class="pretty-box slideshow-container">
+      <h1>fotinhas hehe</h1>
+      <div class="slideshow" id="slideshow">
+        <img class="slide-img" src="img/img lauran (1).jpeg" alt="Foto 1" />
+        <img class="slide-img" src="img/img lauran (2).jpeg" alt="Foto 2" />
+        <img class="slide-img" src="img/img lauran (3).jpeg" alt="Foto 3" />
+        <img class="slide-img" src="img/img lauran (4).jpeg" alt="Foto 4" />
+        <img class="slide-img" src="img/img lauran (5).jpeg" alt="Foto 5" />
+        <img class="slide-img" src="img/img lauran (6).jpeg" alt="Foto 6" />
+        <img class="slide-img" src="img/img lauran (7).jpeg" alt="Foto 7" />
+        <img class="slide-img" src="img/img lauran (8).jpeg" alt="Foto 8" />
+        <img class="slide-img" src="img/img lauran (9).jpeg" alt="Foto 9" />
+        <img class="slide-img" src="img/img lauran (10).jpeg" alt="Foto 10" />
+        <img class="slide-img" src="img/img lauran (11).jpeg" alt="Foto 11" />
+        <img class="slide-img" src="img/img lauran (12).jpeg" alt="Foto 12" />
+        <img class="slide-img" src="img/img lauran (13).jpeg" alt="Foto 13" />
+        <img class="slide-img" src="img/img lauran (14).jpeg" alt="Foto 14" />
+        <img class="slide-img" src="img/img lauran (15).jpeg" alt="Foto 15" />
+        <img class="slide-img" src="img/img lauran (16).jpeg" alt="Foto 16" />
+        <img class="slide-img" src="img/img lauran (17).jpeg" alt="Foto 17" />
+        <img class="slide-img" src="img/img lauran (18).jpeg" alt="Foto 18" />
+        <img class="slide-img" src="img/img lauran (19).jpeg" alt="Foto 19" />
+      </div>
+      <span class="number-circle"></span>
+      <div class="dots">
+        <span class="dot active" onclick="goToSlide(0)"></span>
+        <span class="dot" onclick="goToSlide(1)"></span>
+        <span class="dot" onclick="goToSlide(2)"></span>
+        <span class="dot" onclick="goToSlide(3)"></span>
+        <span class="dot" onclick="goToSlide(4)"></span>
+      </div>
+    </div>
+    <div class="pretty-box message">
+      <p>Tem umas aí que só Deus na causa mesmo 😅</p>
+    </div>
+    <div style="margin-top: 2rem;" class="pretty-box">
+      <h1>Tempo Juntos</h1>
+      <div class="countdown" id="countdown">
+        <div class="block years">
+          <h2>0</h2>
+          <p>Anos</p>
+        </div>
+        <div class="block months">
+          <h2>0</h2>
+          <p>Meses</p>
+        </div>
+        <div class="block days">
+          <h2>0</h2>
+          <p>Dias</p>
+        </div>
+        <div class="block hours">
+          <h2>0</h2>
+          <p>Horas</p>
+        </div>
+        <div class="block minutes">
+          <h2>0</h2>
+          <p>Minutos</p>
+        </div>
+        <div class="block seconds">
+          <h2>0</h2>
+          <p>Segundos</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pretty-box message for-her">
+      <p></p>
+    </div>
+
+    <script>
+      // Ouvinte de carregamento de página
+      document.addEventListener("DOMContentLoaded", async () => {
+        exibirMensagemBoasVindas();
+        exibirTempoJuntos();
+        exibirFotosAleatorias();
+        initSmartSlideshow();
+      });
+      // Exibe a mensagem de boas-vindas, conforme a data
+      function exibirMensagemBoasVindas() {
+        // Obtém os dados
+        let mensagem = document.querySelector(".hello-message");
+        let mensagemEla = document.querySelector(".for-her");
+        let data = new Date();
+        let mes = data.getMonth() + 1;
+        let dia = data.getDate();
+        console.log(mes);
+        // Verifica se é a data de aniversário
+        if (mes == 7 && dia == 29) {
+          mensagem.innerText = "Feliz aniversário, meu amor!";
+          mensagemEla.innerText =
+            "Hoje é o seu dia, meu bem! Mesmo desejando todos os dias, espero que você tenha um dia incrível, repleto de alegria, risadas e estresse comigo! Deus lhe abençoe imensamente, estou feliz de que esteja crescendo e envelhecendo... ao meu lado! 💖";
+        } else {
+          mensagem.innerText = "Ana Laura";
+          mensagemEla.innerText =
+            "Até parece que foi ontem que você ficava me enchendo o saco pra ir na sua casa, à noite, só pra ficar caçoando da minha cara e botando o dedo no meu nariz 😅. Hoje, já passou um tempinho desde que começamos a namorar, e eu não poderia estar mais feliz por ter você ao meu lado! Você é a razão do meu sorriso diário, e eu sou grato por cada momento que passamos juntos. Que venham muitos mais meses e anos de amor, risadas e aventuras! Te amo muito! ❤️";
+        }
+      }
+      // Exibe fotos aleatórias
+      function exibirFotosAleatorias() {
+        const fotos = [
+          "img/img lauran (1).jpeg",
+          "img/img lauran (2).jpeg",
+          "img/img lauran (3).jpeg",
+          "img/img lauran (4).jpeg",
+          "img/img lauran (5).jpeg",
+          "img/img lauran (6).jpeg",
+          "img/img lauran (7).jpeg",
+          "img/img lauran (8).jpeg",
+          "img/img lauran (9).jpeg",
+          "img/img lauran (10).jpeg",
+          "img/img lauran (11).jpeg",
+          "img/img lauran (12).jpeg",
+          "img/img lauran (13).jpeg",
+          "img/img lauran (14).jpeg",
+          "img/img lauran (15).jpeg",
+          "img/img lauran (16).jpeg",
+          "img/img lauran (17).jpeg",
+          "img/img lauran (18).jpeg",
+          "img/img lauran (19).jpeg",
+        ];
+
+        let ultimaImagem = -1;
+
+        setInterval(() => {
+          let indiceAleatorio;
+
+          do {
+            indiceAleatorio = Math.floor(Math.random() * fotos.length);
+          } while (indiceAleatorio === ultimaImagem); // evita repetir a última
+
+          ultimaImagem = indiceAleatorio;
+          document.getElementById("slide").src = fotos[indiceAleatorio];
+        }, 5000); // troca a cada 5 segundos
+      }
+      // Exibe o tempo juntos
+      function exibirTempoJuntos() {
+        // Countdown
+        const startDate = new Date("2024-09-14T18:00:00"); // Altere para a data do início do relacionamento
+        const countdownContainer = document.getElementById("countdown");
+        const yearsBlock = countdownContainer.querySelector(".years h2");
+        const monthsBlock = countdownContainer.querySelector(".months h2");
+        const daysBlock = countdownContainer.querySelector(".days h2");
+        const hoursBlock = countdownContainer.querySelector(".hours h2");
+        const minutesBlock = countdownContainer.querySelector(".minutes h2");
+        const secondsBlock = countdownContainer.querySelector(".seconds h2");
+
+        setInterval(() => {
+          const now = new Date();
+          let diff = now - startDate;
+
+          let years = now.getFullYear() - startDate.getFullYear();
+          let months = now.getMonth() - startDate.getMonth();
+          let days = now.getDate() - startDate.getDate();
+
+          if (days < 0) {
+            months--;
+            days += 30;
+          }
+          if (months < 0) {
+            years--;
+            months += 12;
+          }
+
+          const hours = now.getHours().toString().padStart(2, "0");
+          const minutes = now.getMinutes().toString().padStart(2, "0");
+          const seconds = now.getSeconds().toString().padStart(2, "0");
+
+          // Atualiza os dados
+          yearsBlock.textContent = years;
+          monthsBlock.textContent = months;
+          daysBlock.textContent = days;
+          hoursBlock.textContent = hours;
+          minutesBlock.textContent = minutes;
+          secondsBlock.textContent = seconds;
+        }, 1000);
+      }
+
+      // Hearts falling
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.textContent = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 20 + "px";
+        document.querySelector(".hearts").appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }
+      setInterval(createHeart, 200);
+         function initSmartSlideshow() {
+      const slideshow = document.getElementById("slideshow");
+      const slides = slideshow.querySelectorAll(".slide-img");
+      const dotsContainer = document.querySelector(".dots");
+      const circle = document.querySelector(".number-circle");
+      const totalSlides = slides.length;
+      let currentSlide = 0;
+      const maxVisibleDots = 5;
+      let intervalId;
+      let startX = 0;
+      let isDragging = false;
+
+      function renderDots() {
+        dotsContainer.innerHTML = "";
+        let start = Math.max(0, currentSlide - Math.floor(maxVisibleDots / 2));
+        let end = start + maxVisibleDots;
+        if (end > totalSlides) {
+          end = totalSlides;
+          start = Math.max(0, end - maxVisibleDots);
+        }
+        for (let i = start; i < end; i++) {
+          const dot = document.createElement("span");
+          dot.className = "dot" + (i === currentSlide ? " active" : "");
+          dot.onclick = () => {
+            currentSlide = i;
+            updateSlide();
+            restartInterval();
+          };
+          dotsContainer.appendChild(dot);
+        }
+      }
+
+      function updateSlide() {
+        slideshow.style.transform = `translateX(-${currentSlide * 100}%)`;
+        circle.textContent = currentSlide + 1; // Atualiza o número do slide atual
+        renderDots();
+      }
+
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateSlide();
+      }
+
+      function restartInterval() {
+        clearInterval(intervalId);
+        intervalId = setInterval(nextSlide, 5000);
+      }
+
+      // Swipe support
+      slideshow.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+      });
+
+      slideshow.addEventListener("touchmove", (e) => {
+        if (!isDragging) return;
+        const deltaX = e.touches[0].clientX - startX;
+        if (deltaX > 50) {
+          currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+          updateSlide();
+          restartInterval();
+          isDragging = false;
+        } else if (deltaX < -50) {
+          currentSlide = (currentSlide + 1) % totalSlides;
+          updateSlide();
+          restartInterval();
+          isDragging = false;
+        }
+      });
+
+      slideshow.addEventListener("touchend", () => {
+        isDragging = false;
+      });
+
+      updateSlide();
+      intervalId = setInterval(nextSlide, 5000);
+    }
+    </script>
+  </body>
+</html>
